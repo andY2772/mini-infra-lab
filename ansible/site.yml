@@ -1,0 +1,8 @@
+- hosts: lab
+  become: true
+  roles:
+    - { role: base, tags: base }
+    - { role: ssh, tags: ssh }
+    - { role: firewall, tags: firewall }
+    - { role: app, tags: app }
+    - { role: nginx, tags: nginx }
