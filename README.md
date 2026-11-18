@@ -130,3 +130,28 @@ Real problems I hit while building this, and what they taught me.
 ## What I learned
 
 Building the server by hand first made every Ansible task easier to write, because I knew what each setting does and what breaks when it is wrong. The most useful habits were: snapshot before every risky change, validate before applying (`netplan try`, `sshd -t`, `nginx -t`, `mount -a`), and always check the effective configuration instead of assuming.
+
+## AI Usage
+I used an AI assistant (Claude) while building this lab. I am a student learning Linux administration, and I wanted fast feedback while working on a real setup.
+
+**What I used it for**
+- Planning the project and breaking it into steps
+- Explaining concepts (systemd, LVM, fstab, restic, idempotence in Ansible)
+- Suggesting commands and configuration snippets that I then adapted
+- Interpreting error messages and logs when something broke
+- Generating this nice README
+
+**What I did myself**
+- Built and ran everything on my own VM and host, and made the design decisions
+- Typed and tested every command, configuration and role
+- Debugged the failures described in the troubleshooting log
+- Wrote the final Ansible roles and verified them against a clean snapshot
+
+**How I verified the output**
+I did not trust suggestions blindly. I checked effective configuration (`sshd -T`), validated before applying (`nginx -t`, `mount -a`, `--check --diff`), tested a backup restore, and confirmed idempotence (`changed=0` on the second run).
+
+**Where the suggestions were wrong**
+Several were incorrect or incomplete for my environment, for example a drop-in file name that was overridden by cloud-init, `sudo -E` not being supported on my system, and a large test file placed on a RAM-backed `/tmp`. Finding and fixing these through testing was a large part of what I learned. 
+
+
+## This repository was documented after building the lab
