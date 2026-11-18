@@ -96,7 +96,7 @@ Prometheus is at `http://localhost:9090`, Grafana at `http://localhost:3000`. In
 - **Backups:** a file was deleted on purpose and restored from a restic snapshot.
 - **Monitoring:** target `vm1` is UP in Prometheus; the disk alert goes Normal, Pending, Firing and back when a large file is created and removed.
 
-Screenshots: 
+Screenshots: ![Grafana dashboard showing VM1 metrics](docs/screenshots/grafana-dashboard.png)
 
 ## Backups
 
