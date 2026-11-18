@@ -1,0 +1,47 @@
+- name: Install nginx
+  ansible.builtin.apt:
+    name: nginx
+    state: present
+    update_cache: true
+    cache_valid_time: 3600
+
+- name: Self-signed certificate
+  ansible.builtin.command:
+    cmd: >
+      openssl req -x509 -nodes -days 365 -newkey rsa:2048
+      -keyout /etc/ssl/private/demo.key
+      -out /etc/ssl/certs/demo.crt
+      -subj "/CN=demo.local"
+    creates: /etc/ssl/certs/demo.crt
+
+- name: Configuration reverse proxy
+  ansible.builtin.copy:
+    src: demo.conf
+    dest: /etc/nginx/sites-available/demo
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Reload nginx
+
+- name: Power on site
+  ansible.builtin.file:
+    src: /etc/nginx/sites-available/demo
+    dest: /etc/nginx/sites-enabled/demo
+    state: link
+  notify: Reload nginx
+
+- name: Shut down default of network
+  ansible.builtin.file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+  notify: Reload nginx
+
+- name: Config test nginx
+  ansible.builtin.command: nginx -t
+  changed_when: false
+
+- name: nginx runs and is on on start
+  ansible.builtin.service:
+    name: nginx
+    state: started
+    enabled: true
