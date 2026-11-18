@@ -88,19 +88,6 @@ docker compose up -d
 
 Prometheus is at `http://localhost:9090`, Grafana at `http://localhost:3000`. In Grafana add a Prometheus data source with the URL `http://prometheus:9090` and import dashboard ID 1860 (Node Exporter Full).
 
-## Security hardening and Lynis results
-
-I ran `lynis audit system` at each stage to measure what the hardening changed.
-
-| Stage | Lynis hardening index |
-|---|---|
-| Fresh install | [TODO] |
-| Manual hardening (SSH, ufw, fail2ban, updates) | [TODO] |
-| Hardening script from my earlier project | [TODO] |
-| Ansible rebuild from a clean install | [TODO] |
-
-Effective SSH settings are verified with `sudo sshd -T`, which prints the configuration that actually applies, not only what is written in a file.
-
 ## Verification
 
 - **Idempotence:** the second `ansible-playbook` run reports `changed=0`.
@@ -109,7 +96,7 @@ Effective SSH settings are verified with `sudo sshd -T`, which prints the config
 - **Backups:** a file was deleted on purpose and restored from a restic snapshot.
 - **Monitoring:** target `vm1` is UP in Prometheus; the disk alert goes Normal, Pending, Firing and back when a large file is created and removed.
 
-Screenshots: [TODO: Grafana dashboard, alert in Firing state, Lynis report].
+Screenshots: 
 
 ## Backups
 
