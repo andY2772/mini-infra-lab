@@ -1,0 +1,6 @@
+venv/
+.env
+*.retry
+*.key
+*.pem
+.restic-pass
