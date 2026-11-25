@@ -1,6 +1,6 @@
 # Mini Infra Lab
 
-A small, reproducible Linux infrastructure lab: a hardened Ubuntu Server 24.04 VM, a custom systemd service behind an nginx reverse proxy, encrypted backups, monitoring with Prometheus and Grafana, and the whole server configuration automated with Ansible.
+A small, reproducible Linux infrastructure lab: a hardened Ubuntu Server 26.04 VM, a custom systemd service behind an nginx reverse proxy, encrypted backups, monitoring with Prometheus and Grafana, and the whole server configuration automated with Ansible.
 
 The goal was to build one server by hand first, understand every step, and then rebuild it from a clean install with a single command.
 
@@ -13,7 +13,7 @@ flowchart LR
         P[Prometheus :9090]
         G[Grafana :3000]
     end
-    subgraph VM["VM1: Ubuntu Server 24.04 (VirtualBox)"]
+    subgraph VM["VM1: Ubuntu Server 26.04 (VirtualBox)"]
         S[sshd + ufw + fail2ban]
         N[nginx :443]
         D[demoapp.service 127.0.0.1:8080]
@@ -68,7 +68,7 @@ mini_infra_project/
 
 ## How to reproduce
 
-1. Create a VirtualBox VM with Ubuntu Server 24.04 (OpenSSH server installed), Adapter 1 NAT and Adapter 2 Host-only.
+1. Create a VirtualBox VM with Ubuntu Server 26.04 (OpenSSH server installed), Adapter 1 NAT and Adapter 2 Host-only.
 2. Set the static address on the host-only interface with netplan (`192.168.56.10/24`) and copy your public key: `ssh-copy-id -i ~/.ssh/id_ed25519.pub <user>@192.168.56.10`.
 3. On the host, install Ansible (`pipx install --include-deps ansible`) and run:
 
